@@ -67,25 +67,18 @@ h1 {
   color: var(--ink);
 }
 
-.header-right {
-  text-align: right;
-}
-
-/* Sur petit écran : les deux textes au-dessus, la bulle en dessous */
+/* Sur petit écran : le texte au-dessus, la bulle en dessous */
 @media (max-width: 991px) {
   .site-header {
     position: static;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .header-side {
     font-size: 0.8rem;
-    white-space: nowrap;
   }
 
   .nav-bubble {
-    grid-column: 1 / -1;
-    grid-row: 2;
     justify-self: center;
   }
 }
