@@ -17,8 +17,6 @@ function Navbar() {
           <NavLink to="/about">À propos</NavLink>
         </div>
       </nav>
-
-      <p className="header-side header-right">Réalisé par Jonathan Davy</p>
     </header>
   );
 }
