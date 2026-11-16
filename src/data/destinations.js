@@ -1,7 +1,7 @@
 // Photos de la galerie : Wikimedia Commons
 const commons = "https://thumb.wikimedia.org/wikipedia/commons/thumb/";
 
-const destinations = [
+export const destinations = [
   {
     id: 1,
     slug: "japan",
@@ -155,6 +155,84 @@ const destinations = [
       {
         src: commons + "e/e2/Eriyadu_Island._View_from_the_south._Maldives.jpg/960px-Eriyadu_Island._View_from_the_south._Maldives.jpg",
         alt: "Ponton de l'île d'Eriyadu",
+      },
+    ],
+  },
+  {
+    id: 7,
+    slug: "italy",
+    name: "Italie",
+    region: "Europe",
+    capital: "Rome",
+    description:
+      "Rome, Venise, Florence et la côte amalfitaine : l'Italie réunit art, histoire et cuisine dans chaque région.",
+    image: commons + "4/4d/Positano_%28Italy%29_02.jpg/960px-Positano_%28Italy%29_02.jpg",
+    details:
+      "Rome se visite comme un musée à ciel ouvert, du Colisée au Forum romain. Venise et ses canaux se découvrent à pied ou en vaporetto, tandis que Florence garde les grandes œuvres de la Renaissance autour de sa cathédrale. Au sud, la côte amalfitaine aligne des villages colorés accrochés aux falaises, comme Positano. Le printemps et le début de l'automne évitent la chaleur et la foule de l'été.",
+    gallery: [
+      {
+        src: commons + "e/e1/Rome_Colosseum_exterior_2.jpg/960px-Rome_Colosseum_exterior_2.jpg",
+        alt: "Le Colisée, Rome",
+      },
+      {
+        src: commons + "1/17/Panorama_of_Canal_Grande_and_Ponte_di_Rialto%2C_Venice_-_September_2017.jpg/960px-Panorama_of_Canal_Grande_and_Ponte_di_Rialto%2C_Venice_-_September_2017.jpg",
+        alt: "Le Grand Canal et le pont du Rialto, Venise",
+      },
+      {
+        src: commons + "7/77/Florence_Duomo_from_Michelangelo_hill.jpg/960px-Florence_Duomo_from_Michelangelo_hill.jpg",
+        alt: "La cathédrale de Florence au crépuscule",
+      },
+    ],
+  },
+  {
+    id: 8,
+    slug: "morocco",
+    name: "Maroc",
+    region: "Afrique",
+    capital: "Rabat",
+    description:
+      "Des médinas animées aux dunes du Sahara, le Maroc offre des paysages et des villes très contrastés.",
+    image: commons + "2/29/Chefchaouen_%28Blue_City%29.jpg/960px-Chefchaouen_%28Blue_City%29.jpg",
+    details:
+      "À Marrakech, la place Jemaa el-Fna s'anime chaque soir avec ses stands, ses musiciens et ses conteurs. Dans le nord, Chefchaouen est connue pour ses ruelles peintes en bleu. En traversant l'Atlas, on rejoint le ksar d'Aït-Ben-Haddou, puis les dunes de l'Erg Chebbi, aux portes du Sahara. Le printemps et l'automne sont les saisons les plus agréables pour voyager dans tout le pays.",
+    gallery: [
+      {
+        src: commons + "0/0c/Jemaa_el-Fnaa_Marrakech_at_sunset.jpg/960px-Jemaa_el-Fnaa_Marrakech_at_sunset.jpg",
+        alt: "La place Jemaa el-Fna au coucher du soleil, Marrakech",
+      },
+      {
+        src: commons + "0/04/Erg_Chebbi_sunset.jpg/960px-Erg_Chebbi_sunset.jpg",
+        alt: "Les dunes de l'Erg Chebbi",
+      },
+      {
+        src: commons + "a/a4/A%C3%AFtBenhaddou_Morocco_2.jpg/960px-A%C3%AFtBenhaddou_Morocco_2.jpg",
+        alt: "Le ksar d'Aït-Ben-Haddou",
+      },
+    ],
+  },
+  {
+    id: 9,
+    slug: "peru",
+    name: "Pérou",
+    region: "Amérique du Sud",
+    capital: "Lima",
+    description:
+      "Le pays du Machu Picchu, des Andes et du lac Titicaca, riche d'un important héritage inca.",
+    image: commons + "6/62/80_-_Machu_Picchu_-_Juin_2009_-_edit.jpg/960px-80_-_Machu_Picchu_-_Juin_2009_-_edit.jpg",
+    details:
+      "Cusco, ancienne capitale de l'empire inca, est le point de départ pour la Vallée sacrée et le Machu Picchu, la cité perchée dans les Andes. Plus au sud, la montagne Vinicunca est célèbre pour ses couches de couleurs, et le lac Titicaca abrite les îles flottantes des Uros, faites de roseaux. L'altitude est élevée dans une grande partie du pays : il vaut mieux prévoir quelques jours pour s'y habituer.",
+    gallery: [
+      {
+        src: commons + "6/68/Vinicunca%2C_Rainbow_Mountain.jpg/960px-Vinicunca%2C_Rainbow_Mountain.jpg",
+        alt: "La montagne aux sept couleurs Vinicunca",
+      },
+      {
+        src: commons + "1/11/Islas_flotantes_de_los_Uros%2C_Lago_Titicaca%2C_Per%C3%BA%2C_2015-08-01%2C_DD_25.JPG/960px-Islas_flotantes_de_los_Uros%2C_Lago_Titicaca%2C_Per%C3%BA%2C_2015-08-01%2C_DD_25.JPG",
+        alt: "Les îles flottantes des Uros, lac Titicaca",
+      },
+      {
+        src: commons + "a/a6/Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_57.JPG/960px-Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_57.JPG",
+        alt: "Place d'Armes de Cusco",
       },
     ],
   },

@@ -67,11 +67,37 @@ h1 {
   color: var(--ink);
 }
 
-/* Sur petit écran : le texte au-dessus, la bulle en dessous */
+/* Icône de recherche tout à droite */
+.search-icon {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  box-shadow: 0 6px 20px rgba(31, 36, 33, 0.08);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.search-icon:hover {
+  color: var(--accent);
+}
+
+.search-icon.active {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Sur petit écran : texte et icône en haut, la bulle en dessous */
 @media (max-width: 991px) {
   .site-header {
     position: static;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
   }
 
   .header-side {
@@ -79,6 +105,8 @@ h1 {
   }
 
   .nav-bubble {
+    grid-column: 1 / -1;
+    grid-row: 2;
     justify-self: center;
   }
 }
@@ -104,10 +132,13 @@ h1 {
 
 .nav-links {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.25rem;
 }
 
 .nav-links a {
+  white-space: nowrap;
   padding: 0.4rem 1rem;
   border-radius: 999px;
   color: var(--muted);
@@ -133,7 +164,8 @@ h1 {
   }
 
   .nav-links a {
-    padding: 0.4rem 0.75rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -232,6 +264,21 @@ h1 {
 .capital {
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+/* Recherche */
+.search-form {
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* aligne le bouton avec les champs (hauteur du label) */
+@media (min-width: 768px) {
+  .search-submit {
+    padding-top: 2rem;
+  }
 }
 
 /* Pied de page */

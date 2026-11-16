@@ -6,7 +6,7 @@ function HomePage() {
     <Row className="align-items-center g-5">
       <Col lg={5}>
         <p className="eyebrow">Carnet de voyage</p>
-        <h1 className="mb-4">Six pays, six façons de voyager</h1>
+        <h1 className="mb-4">Neuf pays, neuf façons de voyager</h1>
         <p className="lead-text">
           Des temples de Kyoto aux lagons des Maldives, ce site rassemble
           quelques destinations avec leur région, leur capitale et une courte
