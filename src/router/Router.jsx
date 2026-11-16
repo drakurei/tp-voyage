@@ -6,6 +6,7 @@ import DestinationDetailsPage from "../pages/DestinationDetailsPage";
 import SearchPage from "../pages/SearchPage";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
+import RegionPage from "../pages/RegionPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
           <Route path="/" element={<HomePage />} />
           <Route path="/destinations" element={<DestinationsPage />} />
           <Route path="/destinations/:slug" element={<DestinationDetailsPage />} />
+          <Route path="/region/:region" element={<RegionPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />

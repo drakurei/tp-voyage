@@ -27,7 +27,9 @@ function DestinationDetailsPage() {
           </div>
           <div>
             <dt>Région</dt>
-            <dd>{destination.region}</dd>
+            <dd>
+              <Link to={`/region/${destination.region}`}>{destination.region}</Link>
+            </dd>
           </div>
         </dl>
 
