@@ -1,0 +1,17 @@
+- Créer l'arborescence suivante :
+src/
+        - components
+            - Navbar.jsx
+        - data
+            - destinations.js
+        - layouts
+            - MainLayout.jsx
+        - pages
+            - AboutPage.jsx
+            - DestinationDetailsPage.jsx
+            - DestinationsPage.jsx
+            - HomePage.jsx
+            - NotFoundPage.jsx
+            - SearchPage.jsx
+        - router
+            - Router.jsx
