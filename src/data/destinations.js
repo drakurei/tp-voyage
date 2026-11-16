@@ -1,7 +1,7 @@
 // Photos de la galerie : Wikimedia Commons
 const commons = "https://thumb.wikimedia.org/wikipedia/commons/thumb/";
 
-const destinations = [
+export const destinations = [
   {
     id: 1,
     slug: "japan",
