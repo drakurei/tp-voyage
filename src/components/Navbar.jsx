@@ -14,6 +14,7 @@ function Navbar() {
             Accueil
           </NavLink>
           <NavLink to="/destinations">Destinations</NavLink>
+          <NavLink to="/search">Recherche</NavLink>
           <NavLink to="/about">À propos</NavLink>
         </div>
       </nav>

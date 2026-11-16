@@ -104,10 +104,13 @@ h1 {
 
 .nav-links {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.25rem;
 }
 
 .nav-links a {
+  white-space: nowrap;
   padding: 0.4rem 1rem;
   border-radius: 999px;
   color: var(--muted);
@@ -133,7 +136,8 @@ h1 {
   }
 
   .nav-links a {
-    padding: 0.4rem 0.75rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -232,6 +236,21 @@ h1 {
 .capital {
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+/* Recherche */
+.search-form {
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* aligne le bouton avec les champs (hauteur du label) */
+@media (min-width: 768px) {
+  .search-submit {
+    padding-top: 2rem;
+  }
 }
 
 /* Pied de page */
