@@ -44,22 +44,6 @@ function Navbar() {
       </nav>
 
       <div className="header-actions">
-        <form className="header-search" role="search" onSubmit={handleSearch}>
-          <input
-            type="search"
-            placeholder="Rechercher…"
-            aria-label="Rechercher une destination"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button type="submit" aria-label="Lancer la recherche">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <circle cx="11" cy="11" r="7" />
-              <line x1="16.5" y1="16.5" x2="21" y2="21" />
-            </svg>
-          </button>
-        </form>
-
         {user ? (
           <>
             <NavLink to="/profile" className="account-link">
@@ -80,6 +64,23 @@ function Navbar() {
           </>
         )}
       </div>
+
+      {/* Barre de recherche centrée, sous la bulle de navigation */}
+      <form className="header-search" role="search" onSubmit={handleSearch}>
+        <input
+          type="search"
+          placeholder="Rechercher une destination…"
+          aria-label="Rechercher une destination"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <button type="submit" aria-label="Lancer la recherche">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="16.5" y1="16.5" x2="21" y2="21" />
+          </svg>
+        </button>
+      </form>
     </header>
   );
 }
