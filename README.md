@@ -38,10 +38,12 @@ Le site est publié sur GitHub Pages depuis la branche `gh-pages`.
 
 ```
 src/
-  components/   Navbar
+  components/   Navbar, ProtectedRoute
+  context/      AuthContext, ThemeContext, FavoritesContext
   data/         destinations
   layouts/      MainLayout
-  pages/        Accueil, Destinations, Détails, À propos, Recherche, 404
+  pages/        Accueil, Destinations, Détails, Région, Recherche, Contact,
+                Connexion, Inscription, Profil, Favoris, À propos, 404
   router/       Router
 ```
 
