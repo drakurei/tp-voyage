@@ -10,6 +10,7 @@ import RegionPage from "../pages/RegionPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ProfilePage from "../pages/ProfilePage";
+import ProtectedRoute from "../components/ProtectedRoute";
 import NotFoundPage from "../pages/NotFoundPage";
 
 function Router() {
@@ -26,7 +27,10 @@ function Router() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          {/* Routes accessibles seulement si l'utilisateur est connecté */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

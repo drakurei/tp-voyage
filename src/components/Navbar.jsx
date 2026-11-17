@@ -1,8 +1,20 @@
-import { Link, NavLink } from "react-router-dom";
+import { startTransition } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // React Router fait ses navigations dans une transition : on y met aussi
+    // la déconnexion pour que les deux changements arrivent ensemble
+    // (sinon, depuis la page profil, on serait renvoyé vers /login)
+    startTransition(() => {
+      navigate("/");
+      logout();
+    });
+  };
 
   return (
     <header className="site-header">
@@ -31,13 +43,23 @@ function Navbar() {
         </NavLink>
 
         {user ? (
-          <NavLink to="/profile" className="account-link">
-            {user.username}
-          </NavLink>
+          <>
+            <NavLink to="/profile" className="account-link">
+              Profil
+            </NavLink>
+            <button type="button" className="account-link account-secondary" onClick={handleLogout}>
+              Déconnexion
+            </button>
+          </>
         ) : (
-          <NavLink to="/login" className="account-link">
-            Connexion
-          </NavLink>
+          <>
+            <NavLink to="/login" className="account-link">
+              Connexion
+            </NavLink>
+            <NavLink to="/register" className="account-link account-secondary">
+              Inscription
+            </NavLink>
+          </>
         )}
       </div>
     </header>
