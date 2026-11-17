@@ -108,7 +108,13 @@ h1 {
   .header-actions {
     grid-column: 1 / -1;
     grid-row: 2;
-    justify-self: center;
+    justify-self: stretch;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .header-actions .header-search {
+    width: 100%;
   }
 
   .site-header .nav-bubble {
@@ -171,32 +177,50 @@ h1 {
   text-align: right;
 }
 
-.search-icon {
+/* Barre de recherche dans le header */
+.header-search {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 44px;
   height: 44px;
-  border-radius: 50%;
+  width: 220px;
+  padding: 0 0.35rem 0 1rem;
+  border-radius: 999px;
   background: #fff;
   border: 1px solid var(--line);
-  color: var(--ink);
   box-shadow: 0 6px 20px rgba(31, 36, 33, 0.08);
-  transition: background-color 0.15s, color 0.15s;
 }
 
-.search-icon:hover {
-  color: var(--accent);
-}
-
-.search-icon.active {
-  color: #fff;
-  background: var(--accent);
+.header-search:focus-within {
   border-color: var(--accent);
 }
 
-/* Sur petit écran : texte et icône en haut, la bulle en dessous */
-@media (max-width: 991px) {
+.header-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.header-search button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+}
+
+.header-search button:hover {
+  background: var(--accent-dark);
+}
+
+/* Écran moyen : texte, recherche et compte en haut, la bulle en dessous */
+@media (max-width: 1599px) {
   .site-header {
     position: static;
     grid-template-columns: 1fr auto;
