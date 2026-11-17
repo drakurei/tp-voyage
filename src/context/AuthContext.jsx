@@ -1,70 +1,81 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useCallback, useContext, useState } from "react"
 
-// Pas de serveur dans ce TP : les comptes sont gardés dans le localStorage du navigateur
-const USERS_KEY = "voyages_users"
-const CURRENT_USER_KEY = "voyages_user"
+// API utilisée pour l'authentification : https://dummyjson.com/docs/auth
+export const API_URL = "https://dummyjson.com"
 
-function readStorage(key, defaultValue) {
+// On garde le token et l'utilisateur connecté dans le localStorage
+// pour rester connecté après un rechargement de la page
+const STORAGE_KEY = "voyages_auth"
+
+function readAuth() {
   try {
-    const value = localStorage.getItem(key)
-    return value ? JSON.parse(value) : defaultValue
+    const value = localStorage.getItem(STORAGE_KEY)
+    return value ? JSON.parse(value) : { token: null, user: null }
   } catch {
-    return defaultValue
+    return { token: null, user: null }
   }
 }
 
-function writeStorage(key, value) {
+function writeAuth(auth) {
   try {
-    if (value === null) localStorage.removeItem(key)
-    else localStorage.setItem(key, JSON.stringify(value))
+    if (auth.token) localStorage.setItem(STORAGE_KEY, JSON.stringify(auth))
+    else localStorage.removeItem(STORAGE_KEY)
   } catch {
-    // localStorage indisponible (navigation privée...) : on garde seulement l'état en mémoire
+    // localStorage indisponible : on garde seulement l'état en mémoire
   }
-}
-
-// L'utilisateur connecté est gardé sans son mot de passe
-function withoutPassword(user) {
-  // eslint-disable-next-line no-unused-vars
-  const { password, ...rest } = user
-  return rest
 }
 
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  // Utilisateur connecté (null si personne)
-  const [user, setUser] = useState(() => readStorage(CURRENT_USER_KEY, null))
+  const [auth, setAuth] = useState(readAuth)
 
-  const saveUser = (newUser) => {
-    setUser(newUser)
-    writeStorage(CURRENT_USER_KEY, newUser)
+  const saveAuth = (newAuth) => {
+    setAuth(newAuth)
+    writeAuth(newAuth)
   }
 
-  // Inscription : renvoie un message d'erreur, ou null si tout s'est bien passé
-  // newUser : { username, password, email, firstname, lastname, gender, avatar }
-  const register = (newUser) => {
-    const users = readStorage(USERS_KEY, [])
-    if (users.some((u) => u.username === newUser.username)) {
-      return "Ce login est déjà utilisé"
+  // Connexion : appel à l'API, renvoie un message d'erreur ou null si tout va bien
+  const login = async (username, password) => {
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, expiresInMins: 60 }),
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        return "Login ou mot de passe incorrect"
+      }
+
+      saveAuth({
+        token: data.accessToken,
+        user: {
+          id: data.id,
+          username: data.username,
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          image: data.image,
+        },
+      })
+      return null
+    } catch {
+      return "Impossible de joindre le serveur, réessayez plus tard"
     }
-    writeStorage(USERS_KEY, [...users, newUser])
-    saveUser(withoutPassword(newUser))
-    return null
   }
 
-  // Connexion : renvoie true si le login et le mot de passe sont corrects
-  const login = (username, password) => {
-    const users = readStorage(USERS_KEY, [])
-    const found = users.find((u) => u.username === username && u.password === password)
-    if (!found) return false
-    saveUser(withoutPassword(found))
-    return true
-  }
-
-  const logout = () => saveUser(null)
+  // Déconnexion : on oublie le token et l'utilisateur
+  // (useCallback : la fonction reste la même d'un rendu à l'autre,
+  // utile car la page profil l'utilise dans un useEffect)
+  const logout = useCallback(() => {
+    setAuth({ token: null, user: null })
+    writeAuth({ token: null, user: null })
+  }, [])
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout }}>
+    <AuthContext.Provider value={{ user: auth.user, token: auth.token, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

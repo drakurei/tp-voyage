@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Alert, Badge, Button, Card, Col, Row, Form } from "react-bootstrap"
 import { useForm } from "react-hook-form"
@@ -37,11 +38,17 @@ function SearchPage() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(searchSchema),
     defaultValues: { keywords, region },
   })
+
+  // Si l'URL change (ex. recherche lancée depuis le header), on remet le formulaire à jour
+  useEffect(() => {
+    reset({ keywords, region })
+  }, [keywords, region, reset])
 
   const onSubmit = (data) => {
     const params = {}

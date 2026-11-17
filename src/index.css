@@ -1,18 +1,65 @@
+/* Thème clair (par défaut) */
 :root {
   --paper: #f7f5f0;
+  --surface: #ffffff;
   --ink: #1f2421;
   --muted: #6b6f68;
   --line: #e2ddd3;
   --accent: #1f5f5b;
   --accent-dark: #174845;
+  --link: #1f5f5b;
+  --shadow: rgba(31, 36, 33, 0.08);
+}
 
+/* Thème sombre : activé par ThemeContext via <html data-theme="dark"> */
+:root[data-theme="dark"] {
+  --paper: #141716;
+  --surface: #1d2220;
+  --ink: #e8ebe6;
+  --muted: #a4aaa2;
+  --line: #333a37;
+  --accent: #2b7a73;
+  --accent-dark: #236660;
+  --link: #7cc7bf;
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
+/* Bootstrap lit ces variables : on les branche sur les nôtres dans les deux thèmes */
+:root,
+:root[data-bs-theme="dark"] {
   --bs-body-bg: var(--paper);
   --bs-body-color: var(--ink);
-  --bs-link-color-rgb: 31, 95, 91;
+  --bs-emphasis-color: var(--ink);
+  --bs-secondary-color: var(--muted);
+  --bs-border-color: var(--line);
+  --bs-link-color: var(--link);
+  --bs-link-hover-color: var(--link);
+  --bs-card-bg: var(--surface);
 }
 
 body {
   background: var(--paper);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+a {
+  color: var(--link);
+}
+
+.card {
+  --bs-card-bg: var(--surface);
+  --bs-card-color: var(--ink);
+}
+
+.form-control,
+.form-select {
+  background-color: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.form-control::placeholder {
+  color: var(--muted);
 }
 
 h1,
@@ -36,18 +83,15 @@ h1 {
 }
 
 .btn-outline-primary {
-  --bs-btn-color: var(--accent);
+  --bs-btn-color: var(--link);
   --bs-btn-border-color: var(--accent);
   --bs-btn-hover-bg: var(--accent);
   --bs-btn-hover-border-color: var(--accent);
   --bs-btn-active-bg: var(--accent);
 }
 
-/* Navigation : une bulle centrée qui reste en haut */
+/* Navigation : une bulle centrée */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -67,7 +111,7 @@ h1 {
   color: var(--ink);
 }
 
-/* Icône de recherche et compte, tout à droite */
+/* Boutons du compte, tout à droite */
 .header-actions {
   justify-self: end;
   display: flex;
@@ -81,17 +125,83 @@ h1 {
   height: 44px;
   padding: 0 1.1rem;
   border-radius: 999px;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   color: var(--ink);
   font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 6px 20px rgba(31, 36, 33, 0.08);
+  box-shadow: 0 6px 20px var(--shadow);
 }
 
 .account-link:hover {
-  color: var(--accent);
+  color: var(--link);
+}
+
+/* Inscription / Déconnexion : plus discret */
+.account-secondary {
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Bouton rond pour changer de thème */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  box-shadow: 0 6px 20px var(--shadow);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--link);
+}
+
+/* Favoris */
+.favorite-box {
+  margin-top: 1.25rem;
+}
+
+.favorite-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.favorite-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Petit écran : les boutons du compte passent sous le texte de gauche */
+@media (max-width: 575px) {
+  .header-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: stretch;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .site-header .nav-bubble {
+    grid-row: 3;
+  }
+
+  .account-link {
+    height: 40px;
+    padding: 0 0.9rem;
+  }
 }
 
 .account-link.active {
@@ -121,39 +231,81 @@ h1 {
   border: 1px solid var(--line);
 }
 
-.profile-infos {
-  flex-wrap: wrap;
-  row-gap: 1rem;
+.profile-section {
+  font-size: 1.15rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
 }
 
-.search-icon {
+.profile-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0;
+}
+
+.profile-list dt {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.profile-list dd {
+  margin: 0;
+  text-align: right;
+}
+
+/* En-tête de page : titre à gauche, recherche rapide à droite */
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.quick-search {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #fff;
+  height: 46px;
+  width: min(380px, 100%);
+  padding: 0 0.35rem 0 1rem;
+  border-radius: 999px;
+  background: var(--surface);
   border: 1px solid var(--line);
-  color: var(--ink);
-  box-shadow: 0 6px 20px rgba(31, 36, 33, 0.08);
-  transition: background-color 0.15s, color 0.15s;
 }
 
-.search-icon:hover {
-  color: var(--accent);
-}
-
-.search-icon.active {
-  color: #fff;
-  background: var(--accent);
+.quick-search:focus-within {
   border-color: var(--accent);
 }
 
-/* Sur petit écran : texte et icône en haut, la bulle en dessous */
-@media (max-width: 991px) {
+.quick-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.quick-search button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+}
+
+.quick-search button:hover {
+  background: var(--accent-dark);
+}
+
+/* Écran moyen : texte et compte en haut, la bulle en dessous */
+@media (max-width: 1399px) {
   .site-header {
-    position: static;
     grid-template-columns: 1fr auto;
   }
 
@@ -175,10 +327,10 @@ h1 {
   justify-content: center;
   gap: 0.5rem 1.5rem;
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 999px;
-  box-shadow: 0 6px 20px rgba(31, 36, 33, 0.08);
+  box-shadow: 0 6px 20px var(--shadow);
 }
 
 .brand {
@@ -281,7 +433,7 @@ h1 {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--link);
   margin-bottom: 0.5rem;
 }
 
@@ -326,7 +478,7 @@ h1 {
 /* Recherche */
 .search-form {
   padding: 1.5rem;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 6px;
 }

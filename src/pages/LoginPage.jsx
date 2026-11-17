@@ -23,16 +23,19 @@ function LoginPage () {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm({
         resolver: yupResolver(loginSchema),
     })
 
-    const onSubmit = (data) => {
-        if (login(data.username, data.password)) {
-            navigate("/profile")
+    // login() appelle l'API : on attend sa réponse
+    const onSubmit = async (data) => {
+        setError("")
+        const message = await login(data.username, data.password)
+        if (message) {
+            setError(message)
         } else {
-            setError("Login ou mot de passe incorrect")
+            navigate("/profile")
         }
     }
 
@@ -42,6 +45,10 @@ function LoginPage () {
                 <Card className="auth-card">
                     <Card.Body>
                         <h1 className="mb-4">Connexion</h1>
+
+                        <p className="capital mb-4">
+                            Compte de test dummyjson : <strong>emilys</strong> / <strong>emilyspass</strong>
+                        </p>
 
                         {error && <Alert variant="danger">{error}</Alert>}
 
@@ -58,8 +65,8 @@ function LoginPage () {
                                 <Form.Control.Feedback type="invalid">{errors.password?.message}</Form.Control.Feedback>
                             </Form.Group>
 
-                            <Button type="submit" variant="primary" className="w-100">
-                                Se connecter
+                            <Button type="submit" variant="primary" className="w-100" disabled={isSubmitting}>
+                                {isSubmitting ? "Connexion…" : "Se connecter"}
                             </Button>
                         </Form>
 
