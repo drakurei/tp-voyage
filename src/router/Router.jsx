@@ -11,6 +11,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "../components/ProtectedRoute";
+import FavoritesPage from "../pages/FavoritesPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 function Router() {
@@ -30,6 +31,7 @@ function Router() {
           {/* Routes accessibles seulement si l'utilisateur est connecté */}
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>

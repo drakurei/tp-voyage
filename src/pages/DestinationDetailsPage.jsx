@@ -2,9 +2,22 @@ import { Link, useParams } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import destinations from "../data/destinations";
 import NotFoundPage from "./NotFoundPage";
+import { useAuth } from "../context/AuthContext";
+import { useFavorites } from "../context/FavoritesContext";
+
+// Petit cœur, plein si la destination est en favori
+function HeartIcon({ filled }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+    </svg>
+  );
+}
 
 function DestinationDetailsPage() {
   const { slug } = useParams();
+  const { user } = useAuth();
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const destination = destinations.find((d) => d.slug === slug);
 
   if (!destination) {
@@ -35,7 +48,37 @@ function DestinationDetailsPage() {
 
         <p className="lead-text">{destination.description}</p>
 
-        <Button as={Link} to="/destinations" variant="outline-primary" className="mt-3">
+        {/* Favoris : le bouton ne fonctionne que si l'utilisateur est connecté */}
+        <div className="favorite-box">
+          {!user ? (
+            <>
+              <Button variant="outline-primary" className="favorite-btn" disabled>
+                <HeartIcon filled={false} />
+                Ajouter aux favoris
+              </Button>
+              <p className="favorite-hint">
+                <Link to="/login">Connectez-vous</Link> pour ajouter cette destination à vos favoris.
+              </p>
+            </>
+          ) : isFavorite(destination.slug) ? (
+            <>
+              <Button variant="primary" className="favorite-btn" onClick={() => removeFavorite(destination.slug)}>
+                <HeartIcon filled />
+                Retirer des favoris
+              </Button>
+              <p className="favorite-hint">
+                Cette destination est dans vos <Link to="/favorites">favoris</Link>.
+              </p>
+            </>
+          ) : (
+            <Button variant="outline-primary" className="favorite-btn" onClick={() => addFavorite(destination.slug)}>
+              <HeartIcon filled={false} />
+              Ajouter aux favoris
+            </Button>
+          )}
+        </div>
+
+        <Button as={Link} to="/destinations" variant="link" className="mt-3 px-0">
           Retour aux destinations
         </Button>
       </Col>
