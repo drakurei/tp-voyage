@@ -1,19 +1,10 @@
-import { startTransition, useState } from "react";
+import { startTransition } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-
-  // Recherche rapide : on ouvre la page Recherche avec le mot-clé dans l'URL
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const keywords = query.trim();
-    navigate(keywords ? `/search?keywords=${encodeURIComponent(keywords)}` : "/search");
-    setQuery("");
-  };
 
   const handleLogout = () => {
     // React Router fait ses navigations dans une transition : on y met aussi
@@ -64,23 +55,6 @@ function Navbar() {
           </>
         )}
       </div>
-
-      {/* Barre de recherche centrée, sous la bulle de navigation */}
-      <form className="header-search" role="search" onSubmit={handleSearch}>
-        <input
-          type="search"
-          placeholder="Rechercher une destination…"
-          aria-label="Rechercher une destination"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button type="submit" aria-label="Lancer la recherche">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <circle cx="11" cy="11" r="7" />
-            <line x1="16.5" y1="16.5" x2="21" y2="21" />
-          </svg>
-        </button>
-      </form>
     </header>
   );
 }
