@@ -106,6 +106,26 @@ h1 {
   padding: 1rem;
 }
 
+/* Profil */
+.profile-head {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.profile-infos {
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
+
 .search-icon {
   display: flex;
   align-items: center;

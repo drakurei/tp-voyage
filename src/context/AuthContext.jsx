@@ -22,6 +22,13 @@ function writeStorage(key, value) {
   }
 }
 
+// L'utilisateur connecté est gardé sans son mot de passe
+function withoutPassword(user) {
+  // eslint-disable-next-line no-unused-vars
+  const { password, ...rest } = user
+  return rest
+}
+
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
@@ -34,13 +41,14 @@ export function AuthProvider({ children }) {
   }
 
   // Inscription : renvoie un message d'erreur, ou null si tout s'est bien passé
-  const register = ({ username, email, password }) => {
+  // newUser : { username, password, email, firstname, lastname, gender, avatar }
+  const register = (newUser) => {
     const users = readStorage(USERS_KEY, [])
-    if (users.some((u) => u.username === username)) {
+    if (users.some((u) => u.username === newUser.username)) {
       return "Ce login est déjà utilisé"
     }
-    writeStorage(USERS_KEY, [...users, { username, email, password }])
-    saveUser({ username, email })
+    writeStorage(USERS_KEY, [...users, newUser])
+    saveUser(withoutPassword(newUser))
     return null
   }
 
@@ -49,7 +57,7 @@ export function AuthProvider({ children }) {
     const users = readStorage(USERS_KEY, [])
     const found = users.find((u) => u.username === username && u.password === password)
     if (!found) return false
-    saveUser({ username: found.username, email: found.email })
+    saveUser(withoutPassword(found))
     return true
   }
 

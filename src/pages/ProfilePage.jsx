@@ -23,13 +23,20 @@ function ProfilePage () {
     }
 
     return (
-        <Col md={8} lg={5} className="mx-auto">
+        <Col md={10} lg={7} className="mx-auto">
             <Card className="auth-card">
                 <Card.Body>
-                    <p className="eyebrow">Mon profil</p>
-                    <h1 className="mb-4">Bonjour {user.username}</h1>
+                    <div className="profile-head mb-4">
+                        {user.avatar && (
+                            <img src={user.avatar} alt={`Avatar de ${user.username}`} className="profile-avatar" />
+                        )}
+                        <div>
+                            <p className="eyebrow">Mon profil</p>
+                            <h1 className="mb-0">Bonjour {user.firstname || user.username}</h1>
+                        </div>
+                    </div>
 
-                    <dl className="detail-infos">
+                    <dl className="detail-infos profile-infos">
                         <div>
                             <dt>Login</dt>
                             <dd>{user.username}</dd>
@@ -38,6 +45,24 @@ function ProfilePage () {
                             <dt>Email</dt>
                             <dd>{user.email}</dd>
                         </div>
+                        {user.firstname && (
+                            <div>
+                                <dt>Prénom</dt>
+                                <dd>{user.firstname}</dd>
+                            </div>
+                        )}
+                        {user.lastname && (
+                            <div>
+                                <dt>Nom</dt>
+                                <dd>{user.lastname}</dd>
+                            </div>
+                        )}
+                        {user.gender && (
+                            <div>
+                                <dt>Genre</dt>
+                                <dd>{user.gender}</dd>
+                            </div>
+                        )}
                     </dl>
 
                     <Button variant="outline-primary" onClick={handleLogout} className="mt-2">
