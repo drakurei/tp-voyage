@@ -67,9 +67,46 @@ h1 {
   color: var(--ink);
 }
 
-/* Icône de recherche tout à droite */
-.search-icon {
+/* Icône de recherche et compte, tout à droite */
+.header-actions {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.account-link {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(31, 36, 33, 0.08);
+}
+
+.account-link:hover {
+  color: var(--accent);
+}
+
+.account-link.active {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.auth-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.search-icon {
   display: flex;
   align-items: center;
   justify-content: center;
